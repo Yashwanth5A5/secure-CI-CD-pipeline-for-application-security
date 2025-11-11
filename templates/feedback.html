@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Feedback</h2>
+<form method="post">
+  <div class="mb-3">
+    <label>Message</label>
+    <textarea class="form-control" name="message"></textarea>
+  </div>
+  <button class="btn btn-primary">Submit</button>
+</form>
+
+<hr>
+<h4>Recent feedback</h4>
+<ul class="list-group">
+  {% for p in posts %}
+    <li class="list-group-item">
+      <strong>{{ p['user'] }}</strong> - <small>{{ p['created'] }}</small>
+      <div class="mt-2">{{ p['message']|safe }}</div> <!-- stored XSS intentionally -->
+    </li>
+  {% endfor %}
+</ul>
+{% endblock %}

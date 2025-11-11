@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Search</h2>
+<form method="get">
+  <div class="input-group mb-3">
+    <input name="q" class="form-control" placeholder="Search term" value="{{ query }}">
+    <button class="btn btn-outline-secondary">Search</button>
+  </div>
+</form>
+
+<pre>{{ result }}</pre>
+{% endblock %}

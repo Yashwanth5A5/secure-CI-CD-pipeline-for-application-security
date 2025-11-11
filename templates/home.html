@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="jumbotron">
+    <h1 class="display-5">VulnPortal</h1>
+    <p class="lead">{{ greeting|safe }}</p> <!-- deliberate use of |safe to allow XSS reflection -->
+    <hr>
+    <p>Use the navigation to explore the app. This intentionally contains vulnerabilities for testing.</p>
+  </div>
+{% endblock %}
