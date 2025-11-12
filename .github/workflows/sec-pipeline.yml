@@ -10,22 +10,22 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1️⃣ Checkout the code
+      #  Checkout the code
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 2️⃣ Set up Python (adjust version if needed)
+      #  Set up Python (adjust version if needed)
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
-      # 3️⃣ Install dependencies
+      #  Install dependencies
       - name: Install dependencies
         run: |
           pip install -r requirements.txt
 
-      # 4️⃣ Install and authenticate Snyk
+      #  Install and authenticate Snyk
       - name: Install Snyk CLI
         run: npm install -g snyk
       - name: Authenticate Snyk
@@ -33,10 +33,10 @@ jobs:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         run: snyk auth $SNYK_TOKEN
 
-      # 5️⃣ Run SAST (code scan)
+      #  Run SAST (code scan)
       - name: Snyk Code Scan
         run: snyk code test
 
-      # 6️⃣ Run SCA (dependency scan)
+      #  Run SCA (dependency scan)
       - name: Snyk Open Source Scan
         run: snyk test --all-projects --severity-threshold=high
