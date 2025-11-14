@@ -108,7 +108,12 @@ def search():
     q = request.args.get("q","")
     # insecure: calling system command with user input (A1/A10)
     try:
-        result = subprocess.getoutput("echo Searching; grep -R '%s' -n sample_data || true" % q)
+        # Call grep directly with argument list to avoid shell injection
+        completed = subprocess.run(['grep', '-R', q, '-n', 'sample_data'],
+                                  stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
+        result = "Searching\n" + completed.stdout
+        if completed.returncode == 1:  # grep returns 1 if nothing matched
+            result += "\nNo matches found."
     except Exception as e:
         result = str(e)
     return render_template("search.html", query=q, result=result)
